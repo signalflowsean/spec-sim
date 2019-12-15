@@ -1,5 +1,7 @@
-# Python 3.6.7 is the base image in a Alpine linux distrubution
-FROM python:3.6.7-alpine3.6
+# Python 3.6.7 is the base image using a slim distrubution
+# NOTE: using slim since pip uses manylinux1 wheels which doesn't support Alipine's musl
+# https://github.com/docker-library/python/issues/381
+FROM python:3.7.5-slim
 
 # Author of file.
 LABEL maintainer="signalflowsean <signalflowsean@gmail.com>"
@@ -10,9 +12,6 @@ WORKDIR '/app'
 # Set environment variables used by the flask command
 ENV FLASK_APP app.py
 ENV FLASK_RUN_HOST 0.0.0.0
-
-# Install gcc so Python packages such as MarkupSafe and SQLAlchemy can compile speedups
-RUN apk add --no-cache gcc musl-dev linux-headers
 
 # Copy the list of dependencies to the working directory of the container
 COPY requirements.txt .
