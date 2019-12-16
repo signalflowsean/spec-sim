@@ -3,12 +3,12 @@ services:
   deep-learner: 
     build: 
       dockerfile: Dockerfile.dev
-      context: ./deep-learner
+      context: ./api
     # port 5000 from the container mapped to port 5000 on local machine  
     ports: 
       - "5000:5000"
     # volumes mount the cd on the host allowing to listen for changes  
     volumes: 
-      - ./deep-learner:/app
+      - ./api:/app
     environment:  
       FLASK_ENV: development
