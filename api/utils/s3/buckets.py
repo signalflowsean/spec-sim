@@ -51,7 +51,7 @@ def _uploadFile(file_name, bucket_name, file):
 # Loops through the files in the directory and uploads them to a bucket
 def uploadFiles(folder_path, bucket_name): 
   print('Uploading files from folder: %s into bucket: %s' % (folder_path, bucket_name))
-  for root, files in os.walk(folder_path):
+  for root, dirs, files in os.walk(folder_path):
     for file in files: 
       _uploadFile(os.path.join(root, file), bucket_name, file)
 
@@ -79,14 +79,3 @@ def downloadFiles(bucket_name):
   print('Downloading files from bucket: %s' % (bucket_name))
   for fileName in getAllFilesNamesInABucket(bucket_name):
     _downloadFile(bucket_name, fileName)
-bucket_name_prefix = 'audio-library'
-foldername_of_files_to_upload = './files'
-foldername_to_download_files_into = 'downloads'
-
-# ---- MAIN FLOW ---- 
-# Create a bucket
-bucketname = createBucket(bucket_name_prefix)
-
-
-# Upload files from files folder into bucket
-uploadFiles(foldername_of_files_to_upload, bucketname)
