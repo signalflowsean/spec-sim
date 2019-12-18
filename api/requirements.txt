@@ -7,3 +7,4 @@ librosa==0.7.1
 numpy==1.17.4
 matplotlib==3.1.1
 pandas==0.25.1
+boto3==1.10.40

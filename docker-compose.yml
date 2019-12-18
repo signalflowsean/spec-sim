@@ -12,3 +12,6 @@ services:
       - ./api:/app
     environment:  
       FLASK_ENV: development
+      S3_KEY: "${S3_KEY}"
+      S3_SECRET: "${S3_SECRET}"
+    
