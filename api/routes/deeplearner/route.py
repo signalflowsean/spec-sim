@@ -57,16 +57,52 @@ def upload_audio_library_to_S3():
   # returns bucketname
   return bucketname
 
+# Hit this endpoint to compute umap features
+# TODO this enpoint should take a bucket name as an argument
+@deeplearner_blueprint.route('/features', methods = ['POST', 'GET'])
+def postFeatures(): 
+  if request.method == 'GET':
+    # ---- CONSTANTS ----
+    foldername = 'downloaded_files_from_s3'
+    downloadPath = './%s' % (foldername)
+
+    # BUCKET NAME THAT HAS WAV FILES
+    bucketname = 'audio-library228a5736-21ea-11ea-8213-0242c0a87002'
+
+    # BUCKET NAME THAT HAS TXT FILES
+    # bucketname = 'audio-libraryc605224e-226a-11ea-8f04-0242ac160002'
+
+    # Remove the current files before downloading more files into the folder
+    remove_all_files_in_folder(downloadPath)
+
+    # Downloads all the files from a bucket into a folder
+    # Returns a list of the file path
+    list_of_downloaded_file_paths = s3.downloadFiles(bucketname, foldername)
+
+    # NOTE THE ENCODING OF WAV BREAKS THE FILE READER -- only works for txt
+    # printContentsOfFiles(list_of_downloaded_file_paths)
+
+    return umap.computeFeatures(downloadPath)
+
+
+# ---- UTILITIES ---- 
+# TODO move these functions out into a util folder
+# Prints contetnts of files
+# Input: array of file paths that have been already downloaded from s3  
+def printContentsOfFiles(file_paths): 
+  for file_path in file_paths: 
+    print('file contents:', open(file_path).read())    
+
 def remove_all_files_in_folder(folder_path): 
   for filename in os.listdir(folder_path):
-      file_path = os.path.join(folder_path, filename)
-      try:
-          if os.path.isfile(file_path) or os.path.islink(file_path):
-              os.unlink(file_path)
-          elif os.path.isdir(file_path):
-              shutil.rmtree(file_path)
-      except Exception as e:
-          print('Failed to delete %s. Reason: %s' % (file_path, e))
+    file_path = os.path.join(folder_path, filename)
+    try:
+      if os.path.isfile(file_path) or os.path.islink(file_path):
+        os.unlink(file_path)
+      elif os.path.isdir(file_path):
+        shutil.rmtree(file_path)
+    except Exception as e:
+      print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 def is_folder(filename): 
   return get_file_ext(filename) == 'ds_store'
@@ -80,8 +116,3 @@ def get_filename(file):
 def is_file_allowed(filename):
     return get_file_ext(filename) in ALLOWED_EXTENSIONS   
 
-# Hit this endpoint to compute umap features
-@deeplearner_blueprint.route('/features', methods = ['POST', 'GET'])
-def postFeatures(): 
-  if request.method == 'GET':
-    return umap.computeFeatures()

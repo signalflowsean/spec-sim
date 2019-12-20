@@ -21,7 +21,7 @@ s3 = _getS3Ref()
 # ---- GET METADATA ----
 # Retrieve all of the files in a bucket - as a obj-list
 def _getAllFilesInABucket(bucket_name): 
-  print('list', s3.list_objects_v2(Bucket=bucket_name))
+  # TODO validate if there are contents of the bucket
   return s3.list_objects_v2(Bucket=bucket_name)['Contents']
 
 # Retrieve all of the file names in a bucket - as a list
@@ -70,12 +70,19 @@ def deleteBucket(bucket_name):
   s3.delete_bucket(Bucket=bucket_name)
 
 # ----  DOWNLOADING FILES(s) ----
-# Downloads a single file from a b ucket
-def _downloadFile(bucket_name, file_name): 
-  s3.download_file(bucket_name, file_name, file_name)
+# Downloads a single file from a bucket
+# Returns download path of downloaded file
+def _downloadFile(bucket_name, file_name, folder_name): 
+  download_path = '%s/%s' % (folder_name, file_name)
+  s3.download_file(bucket_name, file_name, download_path)
+  return download_path
 
 # Downloads all of the files from a bucket
-def downloadFiles(bucket_name):
+def downloadFiles(bucket_name, folder_name):
   print('Downloading files from bucket: %s' % (bucket_name))
-  for fileName in getAllFilesNamesInABucket(bucket_name):
-    _downloadFile(bucket_name, fileName)
+
+  # TODO check if the directory is empty -- if it is make the directory
+  # initialize an array for the files names to be stored in
+  files = []
+  for file_name in getAllFilesNamesInABucket(bucket_name):
+    files.append(_downloadFile(bucket_name, file_name, folder_name))

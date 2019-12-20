@@ -9,6 +9,11 @@ LABEL maintainer="signalflowsean <signalflowsean@gmail.com>"
 # Working directory of the container is /app
 WORKDIR '/app'
 
+# These commands are necessary to run libsndfile in docker
+# libsndfile is necessary for librosa to run and is a library for reading and writing audio files
+RUN apt-get -y update
+RUN apt-get install -y libsndfile1
+
 # Set environment variables used by the flask command
 ENV FLASK_APP app.py
 ENV FLASK_RUN_HOST 0.0.0.0

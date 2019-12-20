@@ -6,7 +6,7 @@ from flask import Flask
 from routes.deeplearner.route import deeplearner_blueprint
 
 # ---- CONSTANTS ----
-UPLOAD_FOLDER = './files'
+UPLOAD_FOLDER = './uploaded_files_to_s3'
 
 # ---- INITIALIZE FLASK APP ----
 app = Flask(__name__)
