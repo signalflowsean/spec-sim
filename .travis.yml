@@ -1,8 +1,10 @@
 sudo: required
+language: generic
 services:
   - docker
 
 before_install:
+  - cd frontend
   - docker build -t signalflowsean/spec-sim -f Dockerfile.dev .
 
 script:
