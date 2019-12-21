@@ -3,7 +3,7 @@
 # TAG IMAGE AS BUILDER - SINCE WE ARE BUILDING THE BUILD FILE
 FROM node:alpine as builder
 WORKDIR '/app'
-COPY package*.json ./
+COPY frontend/package*.json ./
 RUN npm install
 COPY . .
 # CREATE THE BUILD FOLDER

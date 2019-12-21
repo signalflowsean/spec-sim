@@ -5,7 +5,7 @@ FROM node:alpine
 WORKDIR '/frontend'
 
 # COPY FILE THAT LISTS DEPENDENCIES
-COPY package.json .
+COPY frontend/package.json .
 
 # INSTALL DEPENDENCIES
 RUN npm install
