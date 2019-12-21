@@ -12,6 +12,7 @@ script:
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
+  env: "SpecSim-env"
   app: "spec-sim"
   bucket_name: "elasticbeanstalk-us-east-1-012360740649"
   bucket_path: "spec-sim"
