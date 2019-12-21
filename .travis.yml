@@ -6,4 +6,4 @@ before_install:
   - docker build -t signalflowsean/spec-sim -f Dockerfile.dev .
 
 script:
-  - docker run signalflowsean/spec-sim npm run test -- --coverage
+  - docker run -e CI=true signalflowsean/spec-sim npm run test
