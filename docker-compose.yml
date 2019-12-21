@@ -8,13 +8,13 @@ services:
     ports: 
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend/node_modules
-      - ./frontend:/frontend
+      - /app/node_modules
+      - ./frontend:/app
   tests:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
-      - ./frontend:/frontend/node_modules
-      - ./frontend:/frontend
+      - /app/node_modules
+      - ./frontend:/app
     command: ["npm", "run", "test"]

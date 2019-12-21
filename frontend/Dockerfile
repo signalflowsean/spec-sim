@@ -2,10 +2,10 @@
 # USE NODE ALPINE AS THE BASE IMAGE
 # TAG IMAGE AS BUILDER - SINCE WE ARE BUILDING THE BUILD FILE
 FROM node:alpine as builder
-WORKDIR '/frontend'
-COPY package*.json ./
+WORKDIR '/app'
+COPY frontend/package*.json ./
 RUN npm install
-COPY . .
+COPY frontend .
 # CREATE THE BUILD FOLDER
 RUN npm run build
 
