@@ -1,3 +1,3 @@
 docker-compose down
-docker image rm spec-sim_tests 
-docker image rm spec-sim_client 
+docker image rm -f spec-sim_tests 
+docker image rm -f spec-sim_client 
