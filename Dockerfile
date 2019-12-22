@@ -21,4 +21,4 @@ RUN npm run build
 # SERVE THE BUILD FOLDER
 FROM nginx
 EXPOSE 80
-COPY --from=builder /opt/www/client /usr/share/nginx/html
+COPY --from=builder /opt/www/client/build /usr/share/nginx/html
