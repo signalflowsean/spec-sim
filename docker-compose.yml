@@ -3,18 +3,18 @@ version: '3'
 services:
   client:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile.dev
     ports: 
       - "3000:3000"
     volumes:
-      - /app/node_modules
-      - ./frontend:/app
+      - /opt/www/client/node_modules
+      - ./frontend:/opt/www/client
   tests:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - /app/node_modules
-      - ./frontend:/app
+      - /opt/www/client/node_modules
+      - ./frontend:/opt/www/client
     command: ["npm", "run", "test"]
