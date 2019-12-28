@@ -1,0 +1,13 @@
+# This file is used by pip to install required python packages
+# Usage: pip install -r requirements.txt
+
+# Flask Framework
+Flask==1.0.2
+librosa==0.7.1
+numpy==1.17.4
+matplotlib==3.1.1
+pandas==0.25.1
+boto3==1.10.40
+Werkzeug==0.16.0
+umap-learn==0.3.10
+flask-cors==3.0.8

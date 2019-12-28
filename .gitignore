@@ -1,0 +1,6 @@
+__pycache__/
+**/.env
+
+# Don't commit the files that were uploaded and downloaded
+*/downloaded_files_from_s3/*
+*/uploaded_files_to_s3/*

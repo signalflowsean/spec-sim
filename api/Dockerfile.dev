@@ -1,0 +1,35 @@
+# Python 3.6.7 is the base image using a slim distrubution
+# NOTE: using slim since pip uses manylinux1 wheels which doesn't support Alipine's musl
+# https://github.com/docker-library/python/issues/381
+FROM python:3.7.5-slim
+
+# Author of file.
+LABEL maintainer="signalflowsean <signalflowsean@gmail.com>"
+
+# Working directory of the container is /api
+WORKDIR '/api'
+
+# These commands are necessary to run libsndfile in docker
+# libsndfile is necessary for librosa to run and is a library for reading and writing audio files
+RUN apt-get -y update
+RUN apt-get install -y libsndfile1
+
+# Set environment variables used by the flask command
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+
+# Copy the list of dependencies to the working directory of the container
+COPY requirements.txt .
+
+# update pip
+RUN pip install --upgrade pip
+
+# Build the dependencies
+RUN pip install -r requirements.txt
+
+# Copy over the rest of the files
+# We copy twice to utilize layer caching https://docs.semaphoreci.com/article/81-docker-layer-caching
+COPY . . 
+
+# Run the flask app on start
+CMD ["flask", "run"]

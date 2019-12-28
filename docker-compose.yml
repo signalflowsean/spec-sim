@@ -1,20 +1,33 @@
-
 version: '3'
 services:
   client:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile.dev
     ports: 
       - "3000:3000"
     volumes:
-      - /opt/www/client/node_modules
-      - ./frontend:/opt/www/client
+      - /frontend/node_modules
+      - ./frontend:/frontend
   tests:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
-      - /opt/www/client/node_modules
-      - ./frontend:/opt/www/client
+      - /frontend/node_modules
+      - ./frontend:/frontend
     command: ["npm", "run", "test"]
+  api: 
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./api
+    # port 5000 from the container mapped to port 5000 on local machine  
+    ports: 
+      - "5000:5000"
+    # volumes mount the cd on the host allowing to listen for changes  
+    volumes: 
+      - ./api:/api
+    environment:  
+      FLASK_ENV: development
+      S3_KEY: "${S3_KEY}"
+      S3_SECRET: "${S3_SECRET}"
