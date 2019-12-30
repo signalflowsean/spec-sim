@@ -31,3 +31,15 @@ services:
       FLASK_ENV: development
       S3_KEY: "${S3_KEY}"
       S3_SECRET: "${S3_SECRET}"
+  db: 
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    # ENVIRONMENT VARIALBES FOR THE DB
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=spec-sim
+      - MYSQL_USER=spec-sim
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro

@@ -22,6 +22,7 @@ deeplearner_blueprint = Blueprint('deeplearner', __name__)
 def testConnection():
   return umap.test()
 
+# TODO this should go somewhere else
 # Hit this endpoint to add audio library
 # Req: directory containing mp3 files
 # Res: name of s3-bucket that has uploaded files from Req
