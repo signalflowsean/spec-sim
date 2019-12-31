@@ -65,6 +65,8 @@ def computeFeatures(downloadPath):
     
     # Add the single feature vector to an array of aggregated
     mfccs_features[i] = concat_features_features
-    df.printDataFrame(); 
+    # df.printDataFrame(); 
   
-  return np.array_str(mfccs_features)
+    # print('shape', mfccs_features.shape)
+  df.saveFeatures(mfccs_features)
+  return np.array2string(mfccs_features)
