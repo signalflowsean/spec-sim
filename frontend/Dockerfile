@@ -20,5 +20,6 @@ RUN npm run build
 # USE NGNIX IMAGE
 # SERVE THE BUILD FOLDER
 FROM nginx
-EXPOSE 80
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /opt/www/client/build /usr/share/nginx/html
