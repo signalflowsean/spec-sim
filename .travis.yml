@@ -4,11 +4,11 @@ services:
 
 # Build the frontend image
 before_install:
-  - docker build -t signalflowsean/spec-sim -f Dockerfile.dev .
+  - docker build -t signalflowsean/spec-sim -f ./client/Dockerfile.dev ./client
 
 # Run the tests
 script:
-  - docker run -e CI=true signalflowsean/spec-sim npm run test
+  - docker run spec-sim/spec-sim npm test -- --coverage
 
 after_success:
   - docker build -t signalflowsean/spec-sim_client ./client
