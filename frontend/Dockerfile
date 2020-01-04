@@ -4,6 +4,7 @@
 FROM node:alpine as builder
 
 # CREATE A WORKING DIRECTORY 
+# Do we need this path now
 WORKDIR /opt/www/client
 
 # COPY PACKAGE JSON INTO WORK DIR

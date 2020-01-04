@@ -7,6 +7,10 @@ from flask import Blueprint, request, make_response
 # pylint: disable=E0611
 from utils import umap, s3, df, files as fs, df
 
+# ---- CONSTANTS ----
+foldername = 'downloaded_files_from_s3'
+downloadPath = './%s' % (foldername)
+
 # Register flask blueprint
 deeplearner_blueprint = Blueprint('deeplearner', __name__)
 
@@ -24,15 +28,6 @@ def postFeatures():
   # BUCKET NAME THAT HAS WAV FILES
   bucketname = request.get_data(cache=True, as_text=True)
 
-  print('bucketname', bucketname)
-
-  # ---- CONSTANTS ----
-  foldername = 'downloaded_files_from_s3'
-  downloadPath = './%s' % (foldername)
-
-  # BUCKET NAME THAT HAS TXT FILES
-  # bucketname = 'audio-libraryc605224e-226a-11ea-8f04-0242ac160002'
-
   # Remove the current files before downloading more files into the folder
   fs.remove_all_files_in_folder(downloadPath)
 
@@ -40,10 +35,11 @@ def postFeatures():
   # Returns a list of the file path
   list_of_downloaded_file_paths = s3.downloadFiles(bucketname, foldername)
 
-  # NOTE THE ENCODING OF WAV BREAKS THE FILE READER -- only works for txt
-  # printContentsOfFiles(list_of_downloaded_file_paths)
+  mfcss_features = umap.computeFeatures(downloadPath)
 
-  return umap.computeFeatures(downloadPath)
+  # TODO add into db
+  
+  return mfcss_features
 
 @deeplearner_blueprint.route('/coordinates', methods = ['POST'])
 def postSpectralSimilarityCoordinates(): 

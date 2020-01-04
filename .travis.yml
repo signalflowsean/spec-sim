@@ -2,11 +2,25 @@ sudo: required
 services:
   - docker
 
+# Build the frontend image
 before_install:
   - docker build -t signalflowsean/spec-sim -f Dockerfile.dev .
 
+# Run the tests
 script:
   - docker run -e CI=true signalflowsean/spec-sim npm run test
+
+after_success:
+  - docker build -t signalflowsean/spec-sim_client ./client
+  - docker build -t signalflowsean/spec-sim_nginx ./nginx
+  - docker build -t signalflowsean/spec-sim_server ./server
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push signalflowsean/spec-sim_client
+  - docker push signalflowsean/spec-sim_nginx
+  - docker push signalflowsean/spec-sim_server
+
 
 deploy:
   provider: elasticbeanstalk
