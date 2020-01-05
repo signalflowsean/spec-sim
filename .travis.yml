@@ -20,17 +20,16 @@ after_success:
   - docker push signalflowsean/spec-sim_client
   - docker push signalflowsean/spec-sim_nginx
   - docker push signalflowsean/spec-sim_server
-
-
-deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  env: "SpecSim-env"
-  app: "spec-sim"
-  bucket_name: "elasticbeanstalk-us-east-1-012360740649"
-  bucket_path: "spec-sim"
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: "$AWS_SECRET_KEY"
+  
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-east-1"
+#   env: "SpecSim-env"
+#   app: "spec-sim"
+#   bucket_name: "elasticbeanstalk-us-east-1-012360740649"
+#   bucket_path: "spec-sim"
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: "$AWS_SECRET_KEY"
