@@ -25,9 +25,9 @@ deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
   env: "SpectralSims-env"
-  app: "spectral-sims"
+  app: "SpectralSims"
   bucket_name: "elasticbeanstalk-us-east-1-012360740649"
-  bucket_path: "spectral-sims"
+  bucket_path: "SpectralSims"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
