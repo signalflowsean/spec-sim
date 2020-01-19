@@ -1,6 +1,6 @@
 FROM python:3.7.5-slim
 
-WORKDIR  "/app"
+WORKDIR  '/app'
 
 # Copy the list of dependencies to the working directory of the container
 COPY requirements.txt .

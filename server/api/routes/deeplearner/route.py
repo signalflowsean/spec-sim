@@ -5,7 +5,7 @@ from flask import Blueprint, request, make_response
 
 # ---- FIRST PARTY IMPORTS ----
 # pylint: disable=E0611
-from utils import umap, s3, df, files as fs, df
+from utils import umap, s3, files as fs
 
 # ---- CONSTANTS ----
 foldername = 'downloaded_files_from_s3'
@@ -43,11 +43,12 @@ def postFeatures():
 
 @deeplearner_blueprint.route('/coordinates', methods = ['POST'])
 def postSpectralSimilarityCoordinates(): 
-  vector = df.getFeatures()
+  # vector = df.getFeatures()
   # NOTE: FOR TESTING
   # vector = df.createTestVector()
 
   # print('testVector', vector)
-  dataframe = umap.get_spec_sim_coordinates(vector)
+  # dataframe = umap.get_spec_sim_coordinates(vector)
 
-  return dataframe
+  # return dataframe
+  return 'cheese'

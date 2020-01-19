@@ -4,17 +4,16 @@
 FROM node:alpine as builder
 
 # CREATE A WORKING DIRECTORY 
-# Do we need this path now?
-WORKDIR /opt/www/client
+WORKDIR '/app'
 
 # COPY PACKAGE JSON INTO WORK DIR
-COPY frontend/package.json .
+COPY client/package.json .
 
 # INSTALL DEPENDENCIES
 RUN npm install
 
 # COPY THE REST OF THE FOLDER TO TAKE ADVANTAGE OF LAYER CACHING
-COPY frontend .
+COPY client .
 
 RUN npm run build
 
@@ -23,4 +22,4 @@ RUN npm run build
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /opt/www/client/build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html

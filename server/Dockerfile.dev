@@ -15,7 +15,7 @@ RUN apt-get -y update
 RUN apt-get install -y libsndfile1
 
 # Set environment variables used by the flask command
-ENV FLASK_APP app.py
+ENV FLASK_APP spec_sim_api.py
 ENV FLASK_RUN_HOST 0.0.0.0
 
 # Copy the list of dependencies to the working directory of the container

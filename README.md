@@ -12,5 +12,6 @@
 **Setting up permissions on a script:** `chmod +x script.sh`b
 
 ## Connect to DB
-*To enter the db container:* `docker exec -it spec-sim_db_1 bash`
-*To enter the sql shell:* `mysql -u spec-sim -proot spec-sim`
+# flask db stamp head
+# flask db migrate
+# flask db upgrade

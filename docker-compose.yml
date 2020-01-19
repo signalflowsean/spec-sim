@@ -2,44 +2,34 @@ version: '3'
 services:
   client:
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile.dev
     ports: 
       - "3000:3000"
     volumes:
-      - /frontend/node_modules
-      - ./frontend:/frontend
+      - /client/node_modules
+      - ./client:/cient
   tests:
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile.dev
     volumes:
-      - /frontend/node_modules
-      - ./frontend:/frontend
+      - /client/node_modules
+      - ./client:/client
     command: ["npm", "run", "test"]
-  api: 
+  server: 
     build: 
       dockerfile: Dockerfile.dev
-      context: ./api
+      context: ./server
     # port 5000 from the container mapped to port 5000 on local machine  
     ports: 
       - "5000:5000"
     # volumes mount the cd on the host allowing to listen for changes  
     volumes: 
-      - ./api:/api
+      - ./server:/server
     environment:  
       FLASK_ENV: development
       S3_KEY: "${S3_KEY}"
       S3_SECRET: "${S3_SECRET}"
-  db: 
-    image: mysql:5.7
-    ports:
-      - "32000:3306"
-    # ENVIRONMENT VARIALBES FOR THE DB
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=spec-sim
-      - MYSQL_USER=spec-sim
-      - MYSQL_PASSWORD=root
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      UPLOAD_FOLDER: './uploaded_files_to_s3'
+

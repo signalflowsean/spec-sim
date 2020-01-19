@@ -5,7 +5,7 @@ import numpy as np, pandas as pd
 import umap
 
 # ____ FIRST PARTY IMPORTS ----
-from .. import df
+# from .. import df
 
 # SORT FEATURES BY SPECTRAL SIMILARITY
 # UMAP
@@ -32,8 +32,9 @@ def get_spec_sim_coordinates(mfccs_features):
   # Finds x and y coordinates
   for i in range (0, len(umap_mfccs)): 
     point = umap_mfccs[i]
-    df.addItemAtIndex('x_corr', i, point[0])
-    df.addItemAtIndex('y_corr', i, point[1])
+    # df.addItemAtIndex('x_corr', i, point[0])
+    # df.addItemAtIndex('y_corr', i, point[1])
 
-  df.printDataFrame()
-  return df.getDataFrameAsString()
+  # df.printDataFrame()
+  # return df.getDataFrameAsString()
+  return 'cheese'

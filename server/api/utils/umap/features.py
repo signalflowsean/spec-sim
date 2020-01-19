@@ -5,7 +5,7 @@ import numpy as np, pandas as pd
 
 # ---- FIRST PARTY IMPORTS ---
 # pylint: disable=F0401
-from .. import df
+# from .. import df
 
 # ---- CONTANTS ----
 sample_rate = 44100
@@ -16,7 +16,7 @@ def computeFeatures(downloadPath):
   length_of_downloaded_files = len(os.listdir(downloadPath))
 
   # Initializes dataframe to store the data!
-  df.initializeDataFrame(length_of_downloaded_files)
+  # df.initializeDataFrame(length_of_downloaded_files)
   
   # Initialize mfccs features data structure 
   mfccs_features = np.zeros((length_of_downloaded_files, 39))
