@@ -10,5 +10,5 @@ pandas==0.25.1
 boto3==1.10.40
 Werkzeug==0.16.0
 umap-learn==0.3.10
-flask-cors==3.0.8
+flask-cors==3.0.9
 mysql-connector
